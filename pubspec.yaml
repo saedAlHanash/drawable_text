@@ -1,0 +1,41 @@
+name: drawable_text
+description: saed text widget
+version: 0.0.2
+homepage: https://fb.com/SaedAlHanash
+
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # To add assets to your package, add an assets section, like this:
+  assets:
+    - assets/fonts/
+
+  fonts:
+    - family: cairo
+      fonts:
+        - asset: assets/fonts/cairo.ttf
+    - family: cairoBold
+      fonts:
+        - asset: assets/fonts/cairo_bold.ttf
+    - family: cairoSemiBold
+      fonts:
+        - asset: assets/fonts/cairo_semi_bold.ttf
+  #
+  # For details regarding fonts in packages, see
+  # https://flutter.dev/custom-fonts/#from-packages
