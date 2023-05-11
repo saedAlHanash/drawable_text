@@ -2,9 +2,9 @@ library drawable_text;
 
 import 'package:flutter/material.dart';
 
-enum DrawableAlin { withText, between }
+import 'enums.dart';
 
-enum FontManager { cairo, cairoBold, cairoSemiBold }
+
 
 double headerSize = 20;
 double titleSize = 18;
