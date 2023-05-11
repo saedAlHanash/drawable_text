@@ -81,6 +81,27 @@ class DrawableText extends StatelessWidget {
     );
   }
 
+  factory DrawableText.titleList({
+    required String text,
+    EdgeInsets? padding,
+    Color? color,
+    Widget? drawableStart,
+    Widget? drawableEnd,
+  }) {
+    return DrawableText(
+      text: text,
+      fontFamily: FontManager.cairoBold,
+      color: color ?? Colors.black,
+      size: titleSize,
+      maxLines: 1,
+      matchParent: true,
+      textAlign: TextAlign.start,
+      padding: padding,
+      drawableStart: drawableStart,
+      drawableEnd: drawableEnd,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final text = (maxLength == null || this.text.length <= maxLength!)
