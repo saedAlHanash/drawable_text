@@ -1,10 +1,15 @@
 library drawable_text;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 import 'enums.dart';
 
+import 'package:html/parser.dart';
 
+extension HtmlHelper on String {
+  bool get isHTML => parse(this).body?.nodes.isNotEmpty ?? false;
+}
 
 double headerSize = 20;
 double titleSize = 18;
@@ -170,7 +175,7 @@ class DrawableText extends StatelessWidget {
       padding: padding ?? EdgeInsets.zero,
       child: SizedBox(
         width: (matchParent ?? false) ? MediaQuery.of(context).size.width : null,
-        child: child,
+        child: text.isHTML ? Html(data: text) : child,
       ),
     );
   }
