@@ -3,12 +3,18 @@ library drawable_text;
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
-import 'enums.dart';
 
-import 'package:html/parser.dart';
+enum DrawableAlin { withText, between }
+
+enum FontManager { cairo, cairoBold, cairoSemiBold }
 
 extension HtmlHelper on String {
-  bool get isHTML => parse(this).body?.nodes.isNotEmpty ?? false;
+  bool get isHTML {
+    if (contains('<div>') || contains('<p>') || contains('<h') || contains('</')) {
+      return true;
+    }
+    return false;
+  }
 }
 
 double headerSize = 20;
@@ -68,12 +74,11 @@ class DrawableText extends StatelessWidget {
     );
   }
 
-  factory DrawableText.title(
-      {required String text,
-      double? size,
-      Color? color,
-      bool? matchParent,
-      EdgeInsets? padding}) {
+  factory DrawableText.title({required String text,
+    double? size,
+    Color? color,
+    bool? matchParent,
+    EdgeInsets? padding}) {
     return DrawableText(
       text: text,
       fontFamily: FontManager.cairoBold,
@@ -174,7 +179,10 @@ class DrawableText extends StatelessWidget {
     return Padding(
       padding: padding ?? EdgeInsets.zero,
       child: SizedBox(
-        width: (matchParent ?? false) ? MediaQuery.of(context).size.width : null,
+        width: (matchParent ?? false) ? MediaQuery
+            .of(context)
+            .size
+            .width : null,
         child: text.isHTML ? Html(data: text) : child,
       ),
     );
