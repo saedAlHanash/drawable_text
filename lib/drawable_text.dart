@@ -1,8 +1,10 @@
 library drawable_text;
 
-import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'dart:ui';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
 enum DrawableAlin { withText, between }
 
@@ -17,9 +19,12 @@ extension HtmlHelper on String {
   }
 }
 
-double headerSize = 20;
-double titleSize = 18;
-double initialHeight = 1.8;
+double _headerSize = 20;
+double _titleSize = 18;
+double _initialSize = 18;
+double _initialHeight = 1.8;
+Color _initialColor = Colors.black;
+bool _renderHtml = false;
 
 class DrawableText extends StatelessWidget {
   const DrawableText({
@@ -27,7 +32,7 @@ class DrawableText extends StatelessWidget {
     required this.text,
     this.size,
     this.fontFamily = FontManager.cairoSemiBold,
-    this.color = Colors.black,
+    this.color,
     this.textAlign = TextAlign.start,
     this.maxLines = 100,
     this.underLine = false,
@@ -43,7 +48,7 @@ class DrawableText extends StatelessWidget {
   final String text;
   final double? size;
   final FontManager fontFamily;
-  final Color color;
+  final Color? color;
   final TextAlign textAlign;
   final int maxLines;
   final int? maxLength;
@@ -59,18 +64,24 @@ class DrawableText extends StatelessWidget {
     double headerSizeText = 20,
     double titleSizeText = 18,
     double initialHeightText = 1.8,
+    double initialSize = 20,
+    Color initialColor = Colors.black,
+    bool renderHtml = false,
   }) {
-    headerSize = headerSizeText;
-    titleSize = titleSizeText;
-    initialHeight = initialHeightText;
+    _headerSize = headerSizeText;
+    _titleSize = titleSizeText;
+    _initialSize = initialSize;
+    _initialHeight = initialHeightText;
+    _initialColor = initialColor;
+    _renderHtml = renderHtml;
   }
 
   factory DrawableText.header({required String text}) {
     return DrawableText(
       text: text,
       fontFamily: FontManager.cairoBold,
-      color: Colors.black,
-      size: headerSize,
+      color: _initialColor,
+      size: _headerSize,
     );
   }
 
@@ -82,8 +93,8 @@ class DrawableText extends StatelessWidget {
     return DrawableText(
       text: text,
       fontFamily: FontManager.cairoBold,
-      color: color ?? Colors.black,
-      size: size ?? titleSize,
+      color: color ?? _initialColor,
+      size: size ?? _titleSize,
       maxLines: 1,
       textAlign: TextAlign.center,
       matchParent: matchParent,
@@ -101,8 +112,8 @@ class DrawableText extends StatelessWidget {
     return DrawableText(
       text: text,
       fontFamily: FontManager.cairoBold,
-      color: color ?? Colors.black,
-      size: titleSize,
+      color: color ?? _initialColor,
+      size: _titleSize,
       maxLines: 1,
       matchParent: true,
       textAlign: TextAlign.start,
@@ -119,11 +130,12 @@ class DrawableText extends StatelessWidget {
         : '${this.text.substring(0, maxLength)}...';
 
     final textStyle = TextStyle(
-      color: color,
-      fontSize: size ?? titleSize,
+      color: color ?? _initialColor,
+      fontSize: size ?? _initialSize,
       decoration: underLine ? TextDecoration.underline : null,
       fontFamily: fontFamily.name,
-      height: initialHeight,
+      fontFeatures:  const [FontFeature.proportionalFigures()],
+      height: _initialHeight,
     );
 
     late Widget textWidget = Text(
@@ -176,15 +188,24 @@ class DrawableText extends StatelessWidget {
       );
     }
 
-    return Padding(
+    Widget finalWidget = Padding(
       padding: padding ?? EdgeInsets.zero,
       child: SizedBox(
         width: (matchParent ?? false) ? MediaQuery
             .of(context)
             .size
             .width : null,
-        child: text.isHTML ? Html(data: text) : child,
+        child: text.isHTML ? HtmlWidget(text) : child,
       ),
     );
+
+    if (_renderHtml) {
+      finalWidget = TextRenderer(
+        text: text,
+        child: finalWidget,
+      );
+    }
+
+    return finalWidget;
   }
 }
