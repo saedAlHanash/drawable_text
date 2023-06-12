@@ -2,7 +2,6 @@ library drawable_text;
 
 import 'dart:ui';
 
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:flutter/material.dart';
 import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
@@ -195,7 +194,7 @@ class DrawableText extends StatelessWidget {
             .of(context)
             .size
             .width : null,
-        child: text.isHTML ? HtmlWidget(text) : child,
+        child: child,
       ),
     );
 
