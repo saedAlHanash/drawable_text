@@ -4,13 +4,13 @@ version: 0.0.5
 homepage: https://fb.com/SaedAlHanash
 
 environment:
-  sdk: '>=2.19.6 <3.0.0'
+  sdk: '>=3.0.3 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_widget_from_html: ^0.10.1
+#  flutter_widget_from_html: ^0.10.1
   seo_renderer: ^0.6.0
 
 dev_dependencies:
