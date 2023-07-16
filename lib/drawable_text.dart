@@ -37,6 +37,7 @@ class DrawableText extends StatelessWidget {
     this.textAlign = TextAlign.start,
     this.maxLines = 100,
     this.underLine = false,
+    this.selectable,
     this.matchParent,
     this.padding,
     this.drawableStart,
@@ -60,6 +61,7 @@ class DrawableText extends StatelessWidget {
   final Widget? drawableEnd;
   final double? drawablePadding;
   final DrawableAlin drawableAlin;
+  final bool? selectable;
 
   static initial({
     double headerSizeText = 20,
@@ -88,11 +90,12 @@ class DrawableText extends StatelessWidget {
     );
   }
 
-  factory DrawableText.title({required String text,
-    double? size,
-    Color? color,
-    bool? matchParent,
-    EdgeInsets? padding}) {
+  factory DrawableText.title(
+      {required String text,
+      double? size,
+      Color? color,
+      bool? matchParent,
+      EdgeInsets? padding}) {
     return DrawableText(
       text: text,
       fontFamily: FontManager.cairoBold,
@@ -137,7 +140,7 @@ class DrawableText extends StatelessWidget {
       fontSize: size ?? _initialSize,
       decoration: underLine ? TextDecoration.underline : null,
       fontFamily: fontFamily.name,
-      fontFeatures:  const [FontFeature.proportionalFigures()],
+      fontFeatures: const [FontFeature.proportionalFigures()],
       height: _initialHeight,
     );
 
@@ -194,10 +197,7 @@ class DrawableText extends StatelessWidget {
     Widget finalWidget = Padding(
       padding: padding ?? EdgeInsets.zero,
       child: SizedBox(
-        width: (matchParent ?? false) ? MediaQuery
-            .of(context)
-            .size
-            .width : null,
+        width: (matchParent ?? false) ? MediaQuery.of(context).size.width : null,
         child: text.isHTML ? HtmlWidget(text) : child,
       ),
     );
@@ -209,8 +209,8 @@ class DrawableText extends StatelessWidget {
       );
     }
 
-    if (_selectable) {
-      finalWidget = SelectionArea (
+    if ((_selectable && selectable == null) || (selectable ?? false)) {
+      finalWidget = SelectionArea(
         child: finalWidget,
       );
     }
