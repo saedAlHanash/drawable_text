@@ -24,6 +24,7 @@ double _initialSize = 18;
 double _initialHeight = 1.8;
 Color _initialColor = Colors.black;
 bool _renderHtml = false;
+bool _selectable = false;
 
 class DrawableText extends StatelessWidget {
   const DrawableText({
@@ -66,6 +67,7 @@ class DrawableText extends StatelessWidget {
     double initialSize = 20,
     Color initialColor = Colors.black,
     bool renderHtml = false,
+    bool selectable = false,
   }) {
     _headerSize = headerSizeText;
     _titleSize = titleSizeText;
@@ -73,6 +75,7 @@ class DrawableText extends StatelessWidget {
     _initialHeight = initialHeightText;
     _initialColor = initialColor;
     _renderHtml = renderHtml;
+    _selectable = selectable;
   }
 
   factory DrawableText.header({required String text}) {
@@ -201,6 +204,12 @@ class DrawableText extends StatelessWidget {
     if (_renderHtml) {
       finalWidget = TextRenderer(
         text: text,
+        child: finalWidget,
+      );
+    }
+
+    if (_selectable) {
+      finalWidget = SelectionArea (
         child: finalWidget,
       );
     }
