@@ -3,6 +3,7 @@ library drawable_text;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
 enum DrawableAlin { withText, between }
@@ -197,7 +198,7 @@ class DrawableText extends StatelessWidget {
       padding: padding ?? EdgeInsets.zero,
       child: SizedBox(
         width: (matchParent ?? false) ? MediaQuery.of(context).size.width : null,
-        child:  child,
+        child:   text.isHTML ? HtmlWidget(text) : child,
       ),
     );
 
