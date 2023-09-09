@@ -26,6 +26,7 @@ double _initialHeight = 1.8;
 Color _initialColor = Colors.black;
 bool _renderHtml = false;
 bool _selectable = false;
+TextDirection _textDirection = TextDirection.ltr;
 
 class DrawableText extends StatelessWidget {
   const DrawableText({
@@ -71,6 +72,7 @@ class DrawableText extends StatelessWidget {
     Color initialColor = Colors.black,
     bool renderHtml = false,
     bool selectable = false,
+    TextDirection textDirection = TextDirection.ltr,
   }) {
     _headerSize = headerSizeText;
     _titleSize = titleSizeText;
@@ -79,6 +81,7 @@ class DrawableText extends StatelessWidget {
     _initialColor = initialColor;
     _renderHtml = renderHtml;
     _selectable = selectable;
+    _textDirection = textDirection;
   }
 
   factory DrawableText.header({required String text}) {
@@ -147,6 +150,7 @@ class DrawableText extends StatelessWidget {
     late Widget textWidget = Text(
       text,
       textAlign: textAlign,
+      textDirection: _textDirection,
       maxLines: maxLines,
       style: textStyle,
       softWrap: true,
@@ -198,7 +202,7 @@ class DrawableText extends StatelessWidget {
       padding: padding ?? EdgeInsets.zero,
       child: SizedBox(
         width: (matchParent ?? false) ? MediaQuery.of(context).size.width : null,
-        child:   text.isHTML ? HtmlWidget(text) : child,
+        child: text.isHTML ? HtmlWidget(text) : child,
       ),
     );
 
