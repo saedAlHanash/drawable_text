@@ -3,8 +3,6 @@ library drawable_text;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
-import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
 enum DrawableAlin { withText, between }
 
@@ -206,13 +204,6 @@ class DrawableText extends StatelessWidget {
         child: child,
       ),
     );
-
-    if (_renderHtml) {
-      finalWidget = TextRenderer(
-        text: text,
-        child: finalWidget,
-      );
-    }
 
     if (_selectable) {
       finalWidget = SelectionArea(

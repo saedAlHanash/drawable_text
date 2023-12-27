@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 #  flutter_widget_from_html: ^0.10.1
-  seo_renderer: ^0.6.0
+#  seo_renderer: ^0.6.0
 
 dev_dependencies:
   flutter_test:
