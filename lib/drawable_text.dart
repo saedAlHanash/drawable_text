@@ -26,6 +26,7 @@ double _initialHeight = 1.8;
 Color _initialColor = Colors.black;
 bool _renderHtml = false;
 bool _selectable = false;
+String _initialFont = FontManager.cairoSemiBold.name;
 TextDirection _textDirection = TextDirection.ltr;
 
 class DrawableText extends StatelessWidget {
@@ -33,7 +34,7 @@ class DrawableText extends StatelessWidget {
     Key? key,
     required this.text,
     this.size,
-    this.fontFamily = FontManager.cairoSemiBold,
+    this.fontFamily,
     this.color,
     this.textAlign = TextAlign.start,
     this.maxLines = 100,
@@ -50,7 +51,7 @@ class DrawableText extends StatelessWidget {
 
   final String text;
   final double? size;
-  final FontManager fontFamily;
+  final String? fontFamily;
   final Color? color;
   final TextAlign textAlign;
   final int maxLines;
@@ -72,6 +73,7 @@ class DrawableText extends StatelessWidget {
     Color initialColor = Colors.black,
     bool renderHtml = false,
     bool selectable = false,
+    String initialFont = 'cairoSemiBold',
     TextDirection textDirection = TextDirection.ltr,
   }) {
     _headerSize = headerSizeText;
@@ -81,13 +83,14 @@ class DrawableText extends StatelessWidget {
     _initialColor = initialColor;
     _renderHtml = renderHtml;
     _selectable = selectable;
+    _initialFont = initialFont;
     _textDirection = textDirection;
   }
 
   factory DrawableText.header({required String text}) {
     return DrawableText(
       text: text,
-      fontFamily: FontManager.cairoBold,
+      fontFamily: FontManager.cairoBold.name,
       color: _initialColor,
       size: _headerSize,
     );
@@ -101,7 +104,7 @@ class DrawableText extends StatelessWidget {
       EdgeInsets? padding}) {
     return DrawableText(
       text: text,
-      fontFamily: FontManager.cairoBold,
+      fontFamily: FontManager.cairoBold.name,
       color: color ?? _initialColor,
       size: size ?? _titleSize,
       maxLines: 1,
@@ -120,7 +123,7 @@ class DrawableText extends StatelessWidget {
   }) {
     return DrawableText(
       text: text,
-      fontFamily: FontManager.cairoBold,
+      fontFamily: FontManager.cairoBold.name,
       color: color ?? _initialColor,
       size: _titleSize,
       maxLines: 1,
@@ -142,7 +145,7 @@ class DrawableText extends StatelessWidget {
       color: color ?? _initialColor,
       fontSize: size ?? _initialSize,
       decoration: underLine ? TextDecoration.underline : null,
-      fontFamily: fontFamily.name,
+      fontFamily: fontFamily ?? _initialFont,
       fontFeatures: const [FontFeature.proportionalFigures()],
       height: _initialHeight,
     );
