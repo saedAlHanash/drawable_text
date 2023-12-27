@@ -3,6 +3,7 @@ library drawable_text;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
 enum DrawableAlin { withText, between }
@@ -25,17 +26,19 @@ double _initialHeight = 1.8;
 Color _initialColor = Colors.black;
 bool _renderHtml = false;
 bool _selectable = false;
+String _initialFont = FontManager.cairoSemiBold.name;
 
 class DrawableText extends StatelessWidget {
   const DrawableText({
     Key? key,
     required this.text,
     this.size,
-    this.fontFamily = FontManager.cairoSemiBold,
+    this.fontFamily,
     this.color,
     this.textAlign = TextAlign.start,
     this.maxLines = 100,
     this.underLine = false,
+    this.selectable,
     this.matchParent,
     this.padding,
     this.drawableStart,
@@ -47,7 +50,7 @@ class DrawableText extends StatelessWidget {
 
   final String text;
   final double? size;
-  final FontManager fontFamily;
+  final String? fontFamily;
   final Color? color;
   final TextAlign textAlign;
   final int maxLines;
@@ -59,6 +62,7 @@ class DrawableText extends StatelessWidget {
   final Widget? drawableEnd;
   final double? drawablePadding;
   final DrawableAlin drawableAlin;
+  final bool? selectable;
 
   static initial({
     double headerSizeText = 20,
@@ -68,6 +72,7 @@ class DrawableText extends StatelessWidget {
     Color initialColor = Colors.black,
     bool renderHtml = false,
     bool selectable = false,
+    String initialFont = 'cairoSemiBold',
   }) {
     _headerSize = headerSizeText;
     _titleSize = titleSizeText;
@@ -76,25 +81,29 @@ class DrawableText extends StatelessWidget {
     _initialColor = initialColor;
     _renderHtml = renderHtml;
     _selectable = selectable;
+    _initialFont = initialFont;
+
   }
 
   factory DrawableText.header({required String text}) {
     return DrawableText(
       text: text,
-      fontFamily: FontManager.cairoBold,
+      fontFamily: FontManager.cairoBold.name,
       color: _initialColor,
       size: _headerSize,
     );
   }
 
-  factory DrawableText.title({required String text,
+  factory DrawableText.title({
+    required String text,
     double? size,
     Color? color,
     bool? matchParent,
-    EdgeInsets? padding}) {
+    EdgeInsets? padding,
+  }) {
     return DrawableText(
       text: text,
-      fontFamily: FontManager.cairoBold,
+      fontFamily: FontManager.cairoBold.name,
       color: color ?? _initialColor,
       size: size ?? _titleSize,
       maxLines: 1,
@@ -113,7 +122,7 @@ class DrawableText extends StatelessWidget {
   }) {
     return DrawableText(
       text: text,
-      fontFamily: FontManager.cairoBold,
+      fontFamily: FontManager.cairoBold.name,
       color: color ?? _initialColor,
       size: _titleSize,
       maxLines: 1,
@@ -135,8 +144,8 @@ class DrawableText extends StatelessWidget {
       color: color ?? _initialColor,
       fontSize: size ?? _initialSize,
       decoration: underLine ? TextDecoration.underline : null,
-      fontFamily: fontFamily.name,
-      fontFeatures:  const [FontFeature.proportionalFigures()],
+      fontFamily: fontFamily ?? _initialFont,
+      fontFeatures: const [FontFeature.proportionalFigures()],
       height: _initialHeight,
     );
 
@@ -193,10 +202,7 @@ class DrawableText extends StatelessWidget {
     Widget finalWidget = Padding(
       padding: padding ?? EdgeInsets.zero,
       child: SizedBox(
-        width: (matchParent ?? false) ? MediaQuery
-            .of(context)
-            .size
-            .width : null,
+        width: (matchParent ?? false) ? MediaQuery.of(context).size.width : null,
         child: child,
       ),
     );
@@ -209,7 +215,7 @@ class DrawableText extends StatelessWidget {
     }
 
     if (_selectable) {
-      finalWidget = SelectionArea (
+      finalWidget = SelectionArea(
         child: finalWidget,
       );
     }
