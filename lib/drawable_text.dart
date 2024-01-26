@@ -3,6 +3,7 @@ library drawable_text;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
 enum DrawableAlin { withText, between }
 
@@ -22,7 +23,7 @@ double _titleSize = 18;
 double _initialSize = 18;
 double _initialHeight = 1.8;
 Color _initialColor = Colors.black;
-bool _renderHtml = false;
+
 bool _selectable = false;
 String _initialFont = FontManager.cairoSemiBold.name;
 
@@ -68,7 +69,6 @@ class DrawableText extends StatelessWidget {
     double initialHeightText = 1.8,
     double initialSize = 20,
     Color initialColor = Colors.black,
-    bool renderHtml = false,
     bool selectable = false,
     String initialFont = 'cairoSemiBold',
   }) {
@@ -77,10 +77,8 @@ class DrawableText extends StatelessWidget {
     _initialSize = initialSize;
     _initialHeight = initialHeightText;
     _initialColor = initialColor;
-    _renderHtml = renderHtml;
     _selectable = selectable;
     _initialFont = initialFont;
-
   }
 
   factory DrawableText.header({required String text}) {
@@ -201,11 +199,11 @@ class DrawableText extends StatelessWidget {
       padding: padding ?? EdgeInsets.zero,
       child: SizedBox(
         width: (matchParent ?? false) ? MediaQuery.of(context).size.width : null,
-        child: child,
+        child: text.isHTML ? HtmlWidget(text) : child,
       ),
     );
 
-    if (_selectable) {
+    if ((_selectable && selectable == null) || (selectable ?? false)) {
       finalWidget = SelectionArea(
         child: finalWidget,
       );

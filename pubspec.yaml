@@ -1,6 +1,6 @@
 name: drawable_text
 description: saed text widget
-version: 0.0.5
+version: 0.0.7
 homepage: https://fb.com/SaedAlHanash
 
 environment:
@@ -10,9 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-#  flutter_widget_from_html: ^0.10.1
-#  seo_renderer: ^0.6.0
-
+  flutter_widget_from_html_core: ^0.14.11
 dev_dependencies:
   flutter_test:
     sdk: flutter
