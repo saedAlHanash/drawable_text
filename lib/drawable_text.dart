@@ -44,6 +44,8 @@ class DrawableText extends StatelessWidget {
     this.drawableEnd,
     this.drawablePadding,
     this.maxLength,
+    this.fontWeight,
+    this.style,
     this.drawableAlin = DrawableAlin.between,
   }) : super(key: key);
 
@@ -62,6 +64,8 @@ class DrawableText extends StatelessWidget {
   final double? drawablePadding;
   final DrawableAlin drawableAlin;
   final bool? selectable;
+  final FontWeight? fontWeight;
+  final TextStyle? style;
 
   static initial({
     double headerSizeText = 20,
@@ -136,14 +140,16 @@ class DrawableText extends StatelessWidget {
         ? this.text
         : '${this.text.substring(0, maxLength)}...';
 
-    final textStyle = TextStyle(
-      color: color ?? _initialColor,
-      fontSize: size ?? _initialSize,
-      decoration: underLine ? TextDecoration.underline : null,
-      fontFamily: fontFamily ?? _initialFont,
-      fontFeatures: const [FontFeature.proportionalFigures()],
-      height: _initialHeight,
-    );
+    final textStyle = style ??
+        TextStyle(
+          color: color ?? _initialColor,
+          fontSize: size ?? _initialSize,
+          decoration: underLine ? TextDecoration.underline : null,
+          fontFamily: fontFamily ?? _initialFont,
+          fontWeight: fontWeight,
+          fontFeatures: const [FontFeature.proportionalFigures()],
+          height: _initialHeight,
+        );
 
     late Widget textWidget = Text(
       text,
