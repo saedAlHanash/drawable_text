@@ -128,6 +128,7 @@ class DrawableText extends StatelessWidget {
           color: color ?? _initialColor,
           fontSize: size ?? _initialSize,
           decoration: textDecoration,
+          decorationColor: color ?? _initialColor,
           fontFamily: fontFamily ?? _initialFont,
           fontWeight: fontWeight,
           fontFeatures: const [FontFeature.proportionalFigures()],
@@ -137,7 +138,7 @@ class DrawableText extends StatelessWidget {
     late Widget textWidget = Text(
       text,
       textAlign: textAlign,
-      maxLines: maxLines??1000,
+      maxLines: maxLines ?? 1000,
       style: textStyle,
       softWrap: true,
       overflow: TextOverflow.ellipsis,
