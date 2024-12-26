@@ -1,6 +1,4 @@
-library drawable_text;
-
-import 'dart:ui';
+library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
@@ -9,7 +7,10 @@ enum DrawableAlin { withText, between }
 
 extension HtmlHelper on String {
   bool get isHTML {
-    if (contains('<div>') || contains('<p>') || contains('<h') || contains('</')) {
+    if (contains('<div>') ||
+        contains('<p>') ||
+        contains('<h') ||
+        contains('</')) {
       return true;
     }
     return false;
@@ -25,7 +26,7 @@ String _initialFont = '';
 
 class DrawableText extends StatelessWidget {
   const DrawableText({
-    Key? key,
+    super.key,
     required this.text,
     this.size,
     this.fontFamily,
@@ -34,7 +35,7 @@ class DrawableText extends StatelessWidget {
     this.maxLines,
     this.textDecoration,
     this.selectable,
-    this.matchParent,
+    this.matchParent = false,
     this.padding,
     this.drawableStart,
     this.drawableEnd,
@@ -43,7 +44,7 @@ class DrawableText extends StatelessWidget {
     this.fontWeight,
     this.style,
     this.drawableAlin = DrawableAlin.between,
-  }) : super(key: key);
+  });
 
   final String text;
   final double? size;
@@ -53,7 +54,7 @@ class DrawableText extends StatelessWidget {
   final int? maxLines;
   final int? maxLength;
   final TextDecoration? textDecoration;
-  final bool? matchParent;
+  final bool matchParent;
   final EdgeInsets? padding;
   final Widget? drawableStart;
   final Widget? drawableEnd;
@@ -166,7 +167,7 @@ class DrawableText extends StatelessWidget {
         ));
       }
 
-      if ((matchParent ?? false) && drawableAlin == DrawableAlin.between) {
+      if (matchParent && drawableAlin == DrawableAlin.between) {
         textWidget = Expanded(child: textWidget);
       }
 
@@ -188,8 +189,8 @@ class DrawableText extends StatelessWidget {
     Widget finalWidget = Padding(
       padding: padding ?? EdgeInsets.zero,
       child: SizedBox(
-        width: (matchParent ?? false) ? MediaQuery.of(context).size.width : null,
-        child: text.isHTML ? HtmlWidget(text) : child,
+        width: matchParent ? MediaQuery.of(context).size.width : null,
+        child: text.isHTML ? HtmlWidget(text, textStyle: style) : child,
       ),
     );
 
