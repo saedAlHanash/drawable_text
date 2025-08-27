@@ -19,7 +19,7 @@ Add the package to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  drawable_text: ^0.0.1
+  drawable_text: ^1.0.0
 ```
 
 Run the following command to get the package:

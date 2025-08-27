@@ -1,6 +1,6 @@
 name: drawable_text
 description: an text widget with icons start and end
-version: 0.0.1
+version: ^1.0.0
 homepage: https://github.com/saedAlHanash/drawable_text.git
 
 environment:
