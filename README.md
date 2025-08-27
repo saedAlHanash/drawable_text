@@ -1,39 +1,98 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Drawable Text
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A Flutter package that provides a text widget with drawable widgets at the start and end positions. This package allows you to easily add icons or any widget before or after text with customizable alignment and styling options.
 
 ## Features
 
-text widget with drawable widget (start and end) 
+- Add drawable widgets at the start and/or end of text
+- Customize text appearance (size, color, font family, weight, etc.)
+- Support for HTML text rendering
+- Text selection capability
+- Customizable padding between text and drawable widgets
+- Different alignment options for drawable widgets
+- Support for text overflow handling and max lines
+- Easy to use factory constructors for common use cases
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Add the package to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  drawable_text: ^0.0.1
+```
+
+Run the following command to get the package:
+
+```bash
+flutter pub get
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+### Basic Usage
 
 ```dart
-const like = 'sample';
+DrawableText(
+  text: 'Hello World',
+  drawableStart: Icon(Icons.star),
+  drawableEnd: Icon(Icons.arrow_forward),
+  drawablePadding: 8.0,
+)
+```
+
+### With Custom Styling
+
+```dart
+DrawableText(
+  text: 'Styled Text',
+  size: 18.0,
+  color: Colors.blue,
+  fontWeight: FontWeight.bold,
+  drawableStart: Icon(Icons.favorite, color: Colors.red),
+  drawablePadding: 10.0,
+  textAlign: TextAlign.center,
+  maxLines: 2,
+)
+```
+
+### Using Factory Constructor for Title
+
+```dart
+DrawableText.title(
+  text: 'Section Title',
+  color: Colors.black87,
+  drawableStart: Icon(Icons.title),
+  drawablePadding: 8.0,
+)
+```
+
+### With HTML Content
+
+```dart
+DrawableText(
+  text: '<p>This is <b>HTML</b> content</p>',
+  drawableStart: Icon(Icons.code),
+  drawablePadding: 8.0,
+)
+```
+
+### Selectable Text
+
+```dart
+// Initialize globally
+DrawableText.initial(selectable: true);
+
+// Or per instance
+DrawableText(
+  text: 'This text can be selected',
+  selectable: true,
+  drawableStart: Icon(Icons.select_all),
+)
 ```
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+- Package is licensed under "Free for all"
+- For issues and feature requests, please visit the [GitHub repository](https://github.com/saedAlHanash/drawable_text.git)
+- Contributions are welcome through pull requests

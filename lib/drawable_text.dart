@@ -7,22 +7,14 @@ enum DrawableAlin { withText, between }
 
 extension HtmlHelper on String {
   bool get isHTML {
-    if (contains('<div>') ||
-        contains('<p>') ||
-        contains('<h') ||
-        contains('</')) {
+    if (contains('<div>') || contains('<p>') || contains('<h') || contains('</')) {
       return true;
     }
     return false;
   }
 }
 
-double _initialSize = 18;
-double _initialHeight = 1.8;
-Color _initialColor = Colors.black;
-
 bool _selectable = false;
-String _initialFont = '';
 
 class DrawableText extends StatelessWidget {
   const DrawableText({
@@ -65,17 +57,9 @@ class DrawableText extends StatelessWidget {
   final TextStyle? style;
 
   static initial({
-    double initialHeightText = 1.8,
-    double initialSize = 20,
-    Color initialColor = Colors.black,
     bool selectable = false,
-    String initialFont = 'cairoSemiBold',
   }) {
-    _initialSize = initialSize;
-    _initialHeight = initialHeightText;
-    _initialColor = initialColor;
     _selectable = selectable;
-    _initialFont = initialFont;
   }
 
   factory DrawableText.title({
@@ -120,42 +104,18 @@ class DrawableText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final text = (maxLength == null || this.text.length <= maxLength!)
-        ? this.text
-        : '${this.text.substring(0, maxLength)}...';
-
-    final textStyle = style ??
-        TextStyle(
-          color: color ?? _initialColor,
-          fontSize: size ?? _initialSize,
-          decoration: textDecoration,
-          decorationColor: color ?? _initialColor,
-          fontFamily: fontFamily ?? _initialFont,
-          fontWeight: fontWeight,
-          fontFeatures: const [FontFeature.proportionalFigures()],
-          height: _initialHeight,
-        );
+    final text = (maxLength == null || this.text.length <= maxLength!) ? this.text : '${this.text.substring(0, maxLength)}...';
 
     late Widget textWidget = Text(
       text,
       textAlign: textAlign,
       maxLines: maxLines ?? 1000,
-      style: textStyle,
+      style: style,
       softWrap: true,
       overflow: TextOverflow.ellipsis,
     );
 
     Widget child = textWidget;
-
-    // if (drawableStart != null && drawableEnd != null) {
-    //   dPadding = EdgeInsets.symmetric(horizontal: drawablePadding ?? 0).w;
-    // } else if (drawableStart != null) {
-    //   dPadding = EdgeInsets.only(right: drawablePadding ?? 0).w;
-    // } else if (drawableEnd != null) {
-    //   dPadding = EdgeInsets.only(left: drawablePadding ?? 0).w;
-    // } else {
-    //   dPadding = EdgeInsets.zero;
-    // }
 
     if (drawableStart != null || drawableEnd != null) {
       final childList = <Widget>[];
