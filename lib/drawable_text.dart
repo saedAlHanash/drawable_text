@@ -110,7 +110,14 @@ class DrawableText extends StatelessWidget {
       text,
       textAlign: textAlign,
       maxLines: maxLines ?? 1000,
-      style: style,
+      style: style ??
+          Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: color,
+                fontSize: size,
+                fontFamily: fontFamily,
+                fontWeight: fontWeight,
+                decoration: textDecoration,
+              ),
       softWrap: true,
       overflow: TextOverflow.ellipsis,
     );
